@@ -9,7 +9,7 @@ CORS(app)
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 
-@app.route('/submit-form', methods=['POST'])
+@app.route('/submit-form', methods=['POST','GET'])
 def submit_form():
     try:
         data = request.json
@@ -28,13 +28,15 @@ def submit_form():
 
         logging.debug(f"WhatsApp URL: {whatsapp_url}")
 
-        return jsonify({'whatsapp_url': whatsapp_url})
+        # Return a success response with status 200
+        return jsonify({'status': 'success', 'whatsapp_url': whatsapp_url}), 200
     except Exception as e:
         logging.error(f"Error submitting form: {e}")
-        return jsonify({'error': 'Error submitting form'}), 500
+        # Return an error response with status 500
+        return jsonify({'status': 'error', 'message': 'Error submitting form'}), 500
 
 
-@app.route('/checkout', methods=['POST'])
+@app.route('/checkout', methods=['POST','GET'])
 def checkout():
     try:
         data = request.json
@@ -68,10 +70,12 @@ def checkout():
 
         logging.debug(f"WhatsApp Link: {whatsapp_link}")
 
-        return jsonify({'whatsappLink': whatsapp_link})
+        # Return a success response with status 200
+        return jsonify({'status': 'success', 'whatsappLink': whatsapp_link}), 200
     except Exception as e:
         logging.error(f"Error during checkout: {e}")
-        return jsonify({'error': 'Error processing checkout'}), 500
+        # Return an error response with status 500
+        return jsonify({'status': 'error', 'message': 'Error processing checkout'}), 500
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
