@@ -9,7 +9,7 @@ CORS(app)
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 
-@app.route('/submit-form', methods=['POST','GET'])
+@app.route('/submit-form', methods=['POST'])
 def submit_form():
     try:
         data = request.json
@@ -36,7 +36,7 @@ def submit_form():
         return jsonify({'status': 'error', 'message': 'Error submitting form'}), 500
 
 
-@app.route('/checkout', methods=['POST','GET'])
+@app.route('/checkout', methods=['POST'])
 def checkout():
     try:
         data = request.json
